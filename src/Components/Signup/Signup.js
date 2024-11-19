@@ -12,7 +12,11 @@ export default function Signup() {
   const {firebase} =useContext(FirebaseContext);
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(firebase);
     
+    firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
+      result.user.updateProfile({displayName:username})
+    })
   }
   return (
     <div>

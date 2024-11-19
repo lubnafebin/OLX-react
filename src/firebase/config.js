@@ -1,12 +1,22 @@
 import firebase from "firebase";
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import 'firebase/auth'
+
+const API_KEY = import.meta.env.VITE_API_KEY;
+const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN;
+const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+const STORAGE_BUCKET = import.meta.env.VITE_STORAGE_BUCKET;
+const MESSAGE_ID = import.meta.env.VITE_MESSAGE_ID;
+const APP_ID = import.meta.env.VITE_APP_ID;
+const MEASUREMENT_ID = import.meta.env.VITE_MEASUREMENT_ID;
+
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDu7Mv84lkLYrRWPpQ12WyKaVLFq-wuZck",
-    authDomain: "olx-clone-c2347.firebaseapp.com",
-    projectId: "olx-clone-c2347",
-    storageBucket: "olx-clone-c2347.firebasestorage.app",
-    messagingSenderId: "48041550587",
-    appId: "1:48041550587:web:dbe4a47cc9eb7a7366065e",
-    measurementId: "G-4VFV2H45J4"
+    apiKey: API_KEY,
+    authDomain: AUTH_DOMAIN,
+    projectId: PROJECT_ID,
+    storageBucket: STORAGE_BUCKET,
+    messagingSenderId: MESSAGE_ID,
+    appId: APP_ID,
+    measurementId: MEASUREMENT_ID
 };
 export default firebase.initializeApp(firebaseConfig)       
