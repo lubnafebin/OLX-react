@@ -4,30 +4,47 @@ import Logo from '../../olx-logo.png';
 import {useHistory} from 'react-router-dom'
 import './Signup.css';
 import { FirebaseContext } from '../../store/FirebaseContext';
+import { createUserWithEmailAndPassword,updateProfile } from 'firebase/auth';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth, firestore } from '../../firebase/config';
 
 export default function Signup() {
   const history=useHistory()
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [password, sePassword] = useState('');
+  const [password, setPassword] = useState('');
   const {firebase} =useContext(FirebaseContext);
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
     console.log(firebase);
     
-    firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
-      result.user.updateProfile({displayName:username}).then(()=>{
-        firebase.firestore().collection('users').add({
-          id:result.user.uid,
-          username:username,
-          phone:phone
-        }).then(()=>{
-          history.push("/login");
-        })
-      })
-    }) 
-  }
+
+    try {
+      // Create user with email and password
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+
+      // Update the displayName (username)
+      await updateProfile(result.user, {
+        displayName: username,
+      });
+
+      // Add user to Firestore
+      await addDoc(collection(firestore, 'users'), {
+        id: result.user.uid,
+        username: username,
+        phone: phone,
+      });
+
+      // Redirect to login page
+      history.push("/login");
+    } catch (error) {
+      console.error("Error signing up: ", error.message);
+      // Handle errors (e.g., invalid email, weak password, etc.)
+    }
+  };
+    
+   
   return (
     <div>
       <div className="signupParentDiv">
@@ -42,7 +59,7 @@ export default function Signup() {
             onChange={(e) => setUsername(e.target.value)}
             id="fname"
             name="name"
-            defaultValue="John"
+           
           />
           <br />
           <label htmlFor="fname">Email</label>
@@ -54,7 +71,7 @@ export default function Signup() {
             onChange={(e) => setEmail(e.target.value)}
             id="fname"
             name="email"
-            defaultValue="John"
+           
           />
           <br />
           <label htmlFor="lname">Phone</label>
@@ -66,7 +83,7 @@ export default function Signup() {
             onChange={(e) => setPhone(e.target.value)}
             id="lname"
             name="phone"
-            defaultValue="Doe"
+            
           />
           <br />
           <label htmlFor="lname">Password</label>
@@ -75,14 +92,14 @@ export default function Signup() {
             className="input"
             type="password"
             value={password}
-            onChange={(e) => sePassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             id="lname"
             name="password"
-            defaultValue="Doe"
+            
           />
           <br />
           <br />
-          <button>Signup</button>
+          <button type="submit">Signup</button>
         </form>
         <a>Login</a>
       </div>
