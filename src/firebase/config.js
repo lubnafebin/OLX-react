@@ -1,14 +1,15 @@
-import firebase from "firebase";
-import 'firebase/auth'
+import { initializeApp } from 'firebase/app';
+// import { getFirestore } from 'firebase/firestore';
+// import { getAuth } from 'firebase/auth';
 
-const API_KEY = import.meta.env.VITE_API_KEY;
-const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN;
-const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
-const STORAGE_BUCKET = import.meta.env.VITE_STORAGE_BUCKET;
-const MESSAGE_ID = import.meta.env.VITE_MESSAGE_ID;
-const APP_ID = import.meta.env.VITE_APP_ID;
-const MEASUREMENT_ID = import.meta.env.VITE_MEASUREMENT_ID;
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+const AUTH_DOMAIN = process.env.REACT_APP_AUTH_DOMAIN;
+const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
+const STORAGE_BUCKET = process.env.REACT_APP_STORAGE_BUCKET;
+const MESSAGE_ID = process.env.REACT_APP_MESSAGE_ID;
+const APP_ID = process.env.REACT_APP_APP_ID;
+const MEASUREMENT_ID = process.env.REACT_APP_MEASUREMENT_ID;
 
 const firebaseConfig = {
     apiKey: API_KEY,
@@ -19,4 +20,4 @@ const firebaseConfig = {
     appId: APP_ID,
     measurementId: MEASUREMENT_ID
 };
-export default firebase.initializeApp(firebaseConfig)       
+export default initializeApp(firebaseConfig)       
