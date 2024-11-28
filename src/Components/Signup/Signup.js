@@ -3,7 +3,7 @@ import React, { useState,useContext } from 'react';
 import Logo from '../../olx-logo.png';
 import {useHistory} from 'react-router-dom'
 import './Signup.css';
-import { FirebaseContext } from '../../store/FirebaseContext';
+import { FirebaseContext } from '../../store/Context';
 import { createUserWithEmailAndPassword,updateProfile } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, firestore } from '../../firebase/config';
