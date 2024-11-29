@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Signup from './Pages/Signup'
 import Login from './Pages/Login'
 import Home from './Pages/Home';
+import Create from './Pages/Create'
 import { useContext, useEffect } from 'react';
 import { AuthContext, FirebaseContext } from './store/Context';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -29,6 +30,9 @@ function App() {
         </Route>
         <Route path='/login'>
           <Login />
+        </Route>
+        <Route path='/Create'>
+          <Create />
         </Route>
       </Router>
 
